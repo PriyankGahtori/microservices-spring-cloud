@@ -1,5 +1,10 @@
 package com.priyank.ws.webapp.ui.controller;
 
+import javax.print.attribute.standard.Media;
+
+import com.priyank.ws.webapp.ui.model.request.UserReq;
+
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +23,19 @@ public class UserController {
         return "GET user called with userId = " + userId;
     }
 
-    @GetMapping
-    public String getUser(@RequestParam(value = "page", defaultValue = "1") int page,
+    @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public UserReq getUser(@RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "limit", defaultValue = "30", required = true) int limit,
             @RequestParam(value = "sort", required = false, defaultValue = "desc") String sort) {
-        return "GET user called with page = " + page + " limt = " + limit + " Sorting " + sort;
+        //return "GET user called with page = " + page + " limt = " + limit + " Sorting " + sort;
+
+
+        UserReq user = new UserReq();
+        user.setFirstName("firstName");
+        user.setLastName("lastName");
+        user.setEmail("email");
+        return user;
+
     }
 
     @PostMapping
