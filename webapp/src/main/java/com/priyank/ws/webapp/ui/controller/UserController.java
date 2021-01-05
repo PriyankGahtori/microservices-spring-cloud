@@ -1,6 +1,6 @@
 package com.priyank.ws.webapp.ui.controller;
 
-import javax.print.attribute.standard.Media;
+import javax.validation.Valid;
 
 import com.priyank.ws.webapp.ui.model.request.UserReq;
 import com.priyank.ws.webapp.ui.model.response.UserRes;
@@ -43,7 +43,7 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<UserRes> createUser(@RequestBody UserReq user) {
+    public ResponseEntity<UserRes> createUser(@Valid @RequestBody UserReq user) {
 
         UserRes uResp = new UserRes();
         uResp.setFirstName(user.getFirstName());
