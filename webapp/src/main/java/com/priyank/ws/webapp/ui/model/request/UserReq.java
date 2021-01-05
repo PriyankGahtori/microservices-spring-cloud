@@ -4,8 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Length;
-
 public class UserReq {
     @NotNull
     @Size(min = 2, max=8, message="Fist name should be min 2 char and Max 8 char")
