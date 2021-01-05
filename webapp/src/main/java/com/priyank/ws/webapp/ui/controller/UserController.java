@@ -88,8 +88,15 @@ public class UserController {
         return new ResponseEntity<>(cachedUser, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public String deleteUser() {
-        return "Delete User Called";
+    @DeleteMapping(path = "/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
+        
+        UserRes cachedUser = cache.get(userId);
+        
+        if(null == cachedUser)
+            return ResponseEntity.notFound().build();
+        
+        cache.remove(userId);
+        return ResponseEntity.noContent().build();
     }
 }
