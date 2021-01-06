@@ -22,19 +22,11 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
         return new ResponseEntity<Object>(errorMsg, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(value = NullPointerException.class)
-    public ResponseEntity<Object> handleNPException(NullPointerException ex, WebRequest req)
+    @ExceptionHandler(value = {NullPointerException.class, CustomException.class})
+    public ResponseEntity<Object> handleMultipleException(Exception ex, WebRequest req)
     {
         String msg = ex.getLocalizedMessage() == null ? ex.toString(): ex.getLocalizedMessage();
         ErrorMsgRes errorMsg = new ErrorMsgRes(new Date(), msg);
-        return new ResponseEntity<Object>(errorMsg, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(value = CustomException.class)
-    public ResponseEntity<Object> handleCustomException(CustomException ex, WebRequest req)
-    {
-        String msg = ex.getLocalizedMessage() == null ? ex.toString(): ex.getLocalizedMessage();
-        ErrorMsgRes errorMsg = new ErrorMsgRes(new Date(), msg + " : CEx");
         return new ResponseEntity<Object>(errorMsg, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
