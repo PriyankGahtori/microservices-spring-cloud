@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.priyank.ws.webapp.ui.exception.CustomException;
 import com.priyank.ws.webapp.ui.model.request.UpdateUserDTO;
 import com.priyank.ws.webapp.ui.model.request.UserReq;
 import com.priyank.ws.webapp.ui.model.response.UserRes;
@@ -45,6 +46,8 @@ public class UserController {
             @RequestParam(value = "sort", required = false, defaultValue = "desc") String sort) {
 
                 //throw new NullPointerException();
+             if(true) throw new CustomException("CustomException"); 
+
              String str = null;
              str.length();
         UserReq user = new UserReq();
