@@ -21,6 +21,15 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
         ErrorMsgRes errorMsg = new ErrorMsgRes(new Date(), ex.getLocalizedMessage());
         return new ResponseEntity<Object>(errorMsg, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(value = NullPointerException.class)
+    public ResponseEntity<Object> handleNPException(NullPointerException ex, WebRequest req)
+    {
+        String msg = ex.getLocalizedMessage() == null ? ex.toString(): ex.getLocalizedMessage();
+        ErrorMsgRes errorMsg = new ErrorMsgRes(new Date(), msg);
+        return new ResponseEntity<Object>(errorMsg, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
 
 
