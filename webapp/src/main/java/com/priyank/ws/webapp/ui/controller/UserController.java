@@ -44,6 +44,8 @@ public class UserController {
             @RequestParam(value = "limit", defaultValue = "30", required = true) int limit,
             @RequestParam(value = "sort", required = false, defaultValue = "desc") String sort) {
 
+                throw new NullPointerException();
+                
         UserReq user = new UserReq();
         user.setFirstName("firstName");
         user.setLastName("lastName");
