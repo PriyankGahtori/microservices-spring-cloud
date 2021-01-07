@@ -10,7 +10,10 @@ import com.priyank.ws.webapp.ui.exception.CustomException;
 import com.priyank.ws.webapp.ui.model.request.UpdateUserDTO;
 import com.priyank.ws.webapp.ui.model.request.UserReq;
 import com.priyank.ws.webapp.ui.model.response.UserRes;
+import com.priyank.ws.webapp.ui.service.UserService;
+import com.priyank.ws.webapp.ui.service.impl.UserServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -30,6 +33,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     Map<String,UserRes> cache = new HashMap<>();
+    
+    @Autowired
+    UserService userService;
 
     @GetMapping(path = "/{userId}")
     public ResponseEntity<UserRes> getUser(@PathVariable String userId) {
@@ -61,15 +67,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserRes> createUser(@Valid @RequestBody UserReq user) {
 
-        UserRes uResp = new UserRes();
-        String userId = UUID.randomUUID().toString();   
-
-        uResp.setFirstName(user.getFirstName());
-        uResp.setLastName(user.getLastName());
-        uResp.setEmail(user.getEmail());
-        uResp.setUserId(userId);
-        
-        cache.put(userId, uResp);
+        UserRes uResp = userService.createUser(user);
 
         return new ResponseEntity<>(uResp, HttpStatus.CREATED);
     }
